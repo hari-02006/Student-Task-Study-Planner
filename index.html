@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Task & Study Planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <div class="brand-mark">SP</div>
+          <div>
+            <p class="brand-label">Academic Dashboard</p>
+            <h1>Student Task & Study Planner</h1>
+          </div>
+        </div>
+        <button id="viewJsonBtn" class="secondary-btn" type="button">View JSON Data</button>
+      </header>
+
+      <section class="stats-grid" aria-label="Task statistics">
+        <article class="stat-card">
+          <span class="stat-label">Total Tasks</span>
+          <strong id="totalTasks">0</strong>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">Completed</span>
+          <strong id="completedTasks">0</strong>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">Pending</span>
+          <strong id="pendingTasks">0</strong>
+        </article>
+        <article class="stat-card accent-card">
+          <span class="stat-label">Total Study Time</span>
+          <strong id="totalStudyTime">0 min</strong>
+        </article>
+      </section>
+
+      <main class="main-layout">
+        <section class="panel form-panel">
+          <div class="panel-header">
+            <h2 id="formTitle">Add New Task</h2>
+          </div>
+
+          <form id="taskForm" novalidate>
+            <div class="field-group">
+              <label for="title">Task Title</label>
+              <input id="title" name="title" type="text" placeholder="e.g. Complete JavaScript assignment" />
+              <small class="error-message" id="titleError"></small>
+            </div>
+
+            <div class="field-group">
+              <label for="subject">Subject</label>
+              <input id="subject" name="subject" type="text" placeholder="e.g. Web Development" />
+              <small class="error-message" id="subjectError"></small>
+            </div>
+
+            <div class="two-col">
+              <div class="field-group">
+                <label for="priority">Priority</label>
+                <select id="priority" name="priority">
+                  <option value="">Select priority</option>
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                </select>
+                <small class="error-message" id="priorityError"></small>
+              </div>
+
+              <div class="field-group">
+                <label for="dueDate">Due Date</label>
+                <input id="dueDate" name="dueDate" type="date" />
+                <small class="error-message" id="dueDateError"></small>
+              </div>
+            </div>
+
+            <div class="two-col">
+              <div class="field-group">
+                <label for="studyTime">Estimated Study Time (minutes)</label>
+                <input id="studyTime" name="studyTime" type="number" min="1" max="600" placeholder="60" />
+                <small class="error-message" id="studyTimeError"></small>
+              </div>
+
+              <div class="field-group">
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                  <option value="Pending">Pending</option>
+                  <option value="Completed">Completed</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="description">Task Description</label>
+              <textarea id="description" name="description" rows="4" placeholder="Describe what needs to be done..."></textarea>
+              <small class="error-message" id="descriptionError"></small>
+            </div>
+
+            <div class="button-row">
+              <button type="submit" id="submitBtn" class="primary-btn">Save Task</button>
+              <button type="button" id="resetBtn" class="secondary-btn">Clear Form</button>
+              <button type="button" id="clearAllBtn" class="danger-btn">Clear All</button>
+            </div>
+
+            <div id="formSuccess" class="success-box" role="status" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <aside class="panel list-panel">
+          <div class="panel-header row-header">
+            <h2>Task List</h2>
+          </div>
+
+          <div class="toolbar">
+            <div class="search-wrap">
+              <input id="searchInput" type="text" placeholder="Search by title or subject..." aria-label="Search tasks" />
+            </div>
+
+            <div class="filter-wrap">
+              <label for="filterSelect" class="sr-only">Filter tasks</label>
+              <select id="filterSelect">
+                <option value="All">All</option>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+                <option value="High">High Priority</option>
+                <option value="Medium">Medium Priority</option>
+                <option value="Low">Low Priority</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="taskList" class="task-list"></div>
+        </aside>
+      </main>
+    </div>
+
+    <div id="jsonModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Current JSON Data</h3>
+          <button id="closeJsonModal" class="close-modal" type="button" aria-label="Close JSON view">×</button>
+        </div>
+        <pre id="jsonOutput"></pre>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
